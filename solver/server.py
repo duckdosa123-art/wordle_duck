@@ -72,7 +72,12 @@ def solve(rows):
         suggestions = [{"word": candidates[0], "bits": 0.0, "is_answer": candidates[0] in ANSWER_SET}]
     else:
         note = "" if source == "answers" else "candidates from extended guess list"
-        suggestions = entropy.rank(candidates, guesses, ANSWER_SET, top=5)
+        # When only a handful of candidates remain, suggest exactly those
+        # (never pad with non-candidate words from the wider guess pool).
+        if len(candidates) <= 5:
+            suggestions = entropy.rank(candidates, candidates, ANSWER_SET, top=5)
+        else:
+            suggestions = entropy.rank(candidates, guesses, ANSWER_SET, top=5)
     return candidates, source, note, suggestions
 
 
