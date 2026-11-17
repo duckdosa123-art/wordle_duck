@@ -1,2 +1,3 @@
-# wordle_duck
-Built with ML AI Code
+# My workspace
+
+Built with ML AI Code.
